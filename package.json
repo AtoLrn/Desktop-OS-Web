@@ -1,0 +1,21 @@
+{
+  "name": "mobile-os-web",
+  "version": "1.0.0",
+  "description": "Super In Navigator OS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtoLrn/Mobile-OS-Web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AtoLrn/Mobile-OS-Web/issues"
+  },
+  "homepage": "https://github.com/AtoLrn/Mobile-OS-Web#readme"
+}
