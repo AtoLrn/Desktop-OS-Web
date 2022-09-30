@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  position: relative;
+  background-image: url('https://www.wallpaperuse.com/wallp/79-796213_s.jpg');
+  background-position: center;
+  background-size: cover;
+
+}
+
+nav {
+  z-index: 1000;
+  width: 50vw;
+  position: absolute;
+  bottom: 5vh;
+  border-radius: 15px;
+  left: 25vw;
+  padding: .8em;
+  display: flex;
+  justify-content: flex-start;
+  gap: .8em;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: .2s ease;
+}
+
+nav:hover {
+  bottom: 0vh;
+}
+
+.app-button {
+  cursor: pointer;
+  height: 64px;
+  width: 64px;
+  background-color: blue;
+  border-radius: 10px;
+  background-image: url('https://store-images.s-microsoft.com/image/apps.2005.14057826194083709.67242c47-4fd7-4f1a-9dd6-5d93f6cc10df.f80f14c0-72ab-46ff-86cd-9d801c8e04e8?mode=scale&q=90&h=300&w=300');
+  background-position: center;
+  background-size: cover;
+}
+
+.application-window {
+  background-color: wheat;
+  width: 100%;
+  height: 100%;
+}

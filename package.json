@@ -1,21 +1,15 @@
 {
   "name": "mobile-os-web",
-  "version": "1.0.0",
-  "description": "Super In Navigator OS",
-  "main": "index.js",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AtoLrn/Mobile-OS-Web.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AtoLrn/Mobile-OS-Web/issues"
-  },
-  "homepage": "https://github.com/AtoLrn/Mobile-OS-Web#readme"
+  "devDependencies": {
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0"
+  }
 }
