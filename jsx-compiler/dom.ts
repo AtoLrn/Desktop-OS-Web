@@ -1,9 +1,10 @@
 import { createInnerText, createElement, isComponent } from "./helpers";
+import { JSX } from "./jsx";
 
 const compilerDOM = {
-  createHtml(htmlElement) {
+  createHtml(htmlElement: HTMLElement) {
     return {
-      render(element) {
+      render(element: JSX.IntrinsicElements) {
 
         if (typeof element === "string") {
             createInnerText(htmlElement, element);
@@ -11,7 +12,7 @@ const compilerDOM = {
         }
 
         if (typeof element === "array") {
-          element.map(child => {
+          element.map((child: any) => {
             compilerDOM.createHtml(htmlElement).render(child);
           });
           return;
