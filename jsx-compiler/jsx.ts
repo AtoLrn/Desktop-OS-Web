@@ -10,10 +10,3 @@ const React = {
 
 export default React;
 
-export declare namespace JSX {
-  export interface IntrinsicElements {
-    [elemName: string]: any;
-  }
-}
-  
-  

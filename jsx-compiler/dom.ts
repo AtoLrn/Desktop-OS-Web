@@ -1,10 +1,9 @@
 import { createInnerText, createElement, isComponent } from "./helpers";
-import { JSX } from "./jsx";
 
 const compilerDOM = {
   createHtml(htmlElement: HTMLElement) {
     return {
-      render(element: JSX.IntrinsicElements) {
+      render(element: any) {
 
         if (typeof element === "string") {
             createInnerText(htmlElement, element);
