@@ -1,11 +1,11 @@
-import { JSX } from "./jsx";
+import { JSX } from "./types";
 
-export const createInnerText = (parent: JSX.IntrinsicElements, string: string) => {
+export const createInnerText = (parent: JSX, string: string) => {
     const text = document.createTextNode(string);
     parent.appendChild(text);
 }
 
-export const createElement = (element: JSX.IntrinsicElements) => {
+export const createElement = (element: JSX) => {
     return Object.entries(element.attributes).reduce((newElement, [name, value]) => {
 
         if (name.startsWith("on")) {
@@ -19,7 +19,7 @@ export const createElement = (element: JSX.IntrinsicElements) => {
     }, document.createElement(element.name))
 };
 
-export const isComponent = (el: JSX.IntrinsicElements) => {
+export const isComponent = (el: JSX) => {
     return el.attributes !== undefined 
         && typeof el.name === "function"
 }

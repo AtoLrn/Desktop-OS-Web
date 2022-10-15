@@ -7,5 +7,5 @@ export const App = () => {
     alert("Hello, world!");
   };
 
-  return (<Home />);
+  return (<Home onClick={handleClick} />);
 };

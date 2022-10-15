@@ -1,17 +1,18 @@
 import { createInnerText, createElement, isComponent } from "./helpers";
+import { JSX } from "./types";
 
 const compilerDOM = {
-  createHtml(htmlElement: HTMLElement) {
+  createHtml(htmlElement: JSX) {
     return {
-      render(element: any) {
+      render(element: JSX) {
 
         if (typeof element === "string") {
             createInnerText(htmlElement, element);
             return;
         }
 
-        if (typeof element === "array") {
-          element.map((child: any) => {
+        if (Array.isArray(element)) {
+          element.map((child) => {
             compilerDOM.createHtml(htmlElement).render(child);
           });
           return;
@@ -21,9 +22,10 @@ const compilerDOM = {
           compilerDOM.createHtml(htmlElement).render(element.name({...element.attributes, children: element.children}));
           return;
         }
+
         const createdElement = createElement(element);
 
-        element.children.map(child => {
+        element.children.map((child: JSX) => {
           compilerDOM.createHtml(createdElement).render(child);
         });
 
