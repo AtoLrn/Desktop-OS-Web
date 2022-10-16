@@ -1,11 +1,31 @@
 import React from "../jsx-compiler/jsx";
-import { Home } from "./components/Home";
+import { Application } from "./applications";
 import "./styles/main.scss"
+import { applications } from "./utils/applications";
+import { eventListener } from "./utils/listener";
+import { windowManager } from "./utils/windowManager";
 
 export const App = () => {
-  const handleClick = () => {
-    alert("Hello, world!");
-  };
+  const onHoverNav = () => {
+    eventListener.post('navHover', true)
+  }
 
-  return (<Home onClick={handleClick} />);
+  const onHoverLeftNav = () => {
+    eventListener.post('navHover', false)
+  }
+
+  const onApplicationOpen = (app: Application) => {
+    windowManager.createApp(app)
+  }
+  
+  const sub = eventListener.subscribe('navHover', (val) => console.log('HELLO', val))
+  sub.unsubscribe()
+
+  console.log(windowManager.getOpenedWindow())
+
+  return (<div id="app">
+    <nav onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
+      {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button" title={app.name}></div>)}
+    </nav>
+  </div>);
 };

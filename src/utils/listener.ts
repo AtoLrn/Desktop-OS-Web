@@ -1,17 +1,19 @@
+import { Application } from "../applications"
+
 interface Subscriptions {
     [key: string]: {
-        callback: Function,
+        callback:  (value: string | boolean | object ) => void,
         id: string
     }[]
 }
 
 class Subscription {
     topic: string
-    callback: Function
+    callback: (value: string | boolean | object) => void
     id: string
-    unsubscribeParent: Function
+    unsubscribeParent: (topic: string, subId: string) => void
 
-    constructor(topic: string, callback: Function, id: string, unsubscribe: Function) {
+    constructor(topic: string, callback:  (value: string | boolean | object) => void, id: string, unsubscribe: (topic: string, subId: string) => void) {
         this.topic = topic
         this.callback = callback
         this.id = id
@@ -31,7 +33,7 @@ class EventListener {
         console.log('subscribe')
     }
 
-    public subscribe(topic: string, callback: Function, getOldMessages: boolean = false) {
+    public subscribe(topic: string, callback:  (value: string | boolean | object | Application) => void) {
         const id = 'test'
         if (this.subscriptions[topic]) this.subscriptions[topic].push({ callback, id})
         else this.subscriptions[topic] = [{ callback, id }]
@@ -48,7 +50,8 @@ class EventListener {
     /**
      * post
      */
-    public post(topic: string, message: any) {
+    public post(topic: string, message: string | boolean | object) {
+        if (this.subscriptions[topic])
         this.subscriptions[topic].forEach(sub => sub.callback(message))
     }
 }
