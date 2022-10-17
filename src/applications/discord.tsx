@@ -3,7 +3,7 @@ import React from "../../jsx-compiler/jsx";
 
 export class Discord extends Application {
     name = "Discord"
-    url = "https://i.etsystatic.com/35308167/r/il/ee1b5b/3806884454/il_fullxfull.3806884454_bss8.jpg"
+    public static url = "https://i.etsystatic.com/35308167/r/il/ee1b5b/3806884454/il_fullxfull.3806884454_bss8.jpg"
 
     constructor() {
         super();

@@ -8,6 +8,13 @@ export const createInnerText = (parent: JSX, string: string) => {
 export const createElement = (element: JSX) => {
     return Object.entries(element.attributes).reduce((newElement, [name, value]) => {
 
+        if (name === 'style') {
+            Object.entries(value).forEach(([cssName, cssValue]) => {
+                newElement.style[cssName] = cssValue
+            })
+            return newElement;
+        }
+
         if (name.startsWith("on")) {
             newElement[name.toLowerCase()] = value;
             return newElement;
