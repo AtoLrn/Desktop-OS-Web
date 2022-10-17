@@ -21,6 +21,3 @@ export class TicTacToe extends Application {
         console.log('hide')
     }
 }
-
-const x = new TicTacToe()
-x.build()

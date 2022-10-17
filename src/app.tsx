@@ -25,7 +25,7 @@ export const App = () => {
 
   return (<div id="app">
     <nav onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
-      {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button" title={app.name}></div>)}
+      {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button"  title={app.name}></div>)}
     </nav>
   </div>);
 };

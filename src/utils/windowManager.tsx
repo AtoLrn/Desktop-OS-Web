@@ -16,6 +16,11 @@ export class WindowManager {
 
 
     createApp (app: Application) {
+        const exist = this.windowCollection.find(window => window.name === app.name)
+        if (exist) { 
+            this.showWindow(exist.id)
+            return 
+        } 
         const appInstance = new app()
         this.getAppElement().render(appInstance.build())
         console.log('Opening: ', appInstance.name, ' with ID: ', appInstance.id)
@@ -26,10 +31,23 @@ export class WindowManager {
         return this.windowCollection
     }
 
+    showWindow (id: string) {
+        const elem = document.getElementById(id)
+        if (!elem) return
+        elem.style.display = 'block'
+    }
+
+    hideWindow (id: string) {
+        const elem = document.getElementById(id)
+        if (!elem) return
+        elem.style.display = 'none'
+    }
+
     closingWindow  (id: string) {
         const elem = document.getElementById(id)
         if (!elem) return
         elem.remove()
+        this.windowCollection = this.windowCollection.filter(window => window.id !== id)
     }
 }
 

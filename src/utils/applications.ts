@@ -1,5 +1,7 @@
+import { Discord } from "../applications/discord";
 import { TicTacToe } from "../applications/tictactoe";
 
 export const applications = [
-    TicTacToe
+    TicTacToe,
+    Discord
 ]
