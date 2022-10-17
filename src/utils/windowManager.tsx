@@ -35,6 +35,7 @@ export class WindowManager {
         const elem = document.getElementById(id)
         if (!elem) return
         elem.style.display = 'block'
+        this.top(id)
     }
 
     hideWindow (id: string) {
@@ -61,6 +62,26 @@ export class WindowManager {
         const elem = document.getElementById(id)
         if (!elem) return
         elem.style.zIndex = '11'
+    }
+
+    fullScreen (id: string) {
+        this.top(id)
+        const elem = document.getElementById(id)
+        if (!elem) return
+        elem.style.width = '100vw'
+        elem.style.height = '100vh'
+        elem.style.top = '0'
+        elem.style.left = '0'
+    }
+
+    fullExitScreen (id: string) {
+        this.top(id)
+        const elem = document.getElementById(id)
+        if (!elem) return
+        elem.style.width = '500px'
+        elem.style.height = '500px'
+        elem.style.top = '100px'
+        elem.style.left = '100px'
     }
 }
 

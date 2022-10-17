@@ -6,12 +6,14 @@ export class Application {
     id: string
     name = 'applicationTemplate'
     url = 'https://logo.com'
+    backgroundColor = 'white'
 
     holded = false
 
     offset = [ 0, 0]
 
     moveListener = null
+    fullScreen = false
 
     constructor() {
         this.id = generateId()
@@ -50,11 +52,11 @@ export class Application {
         ]
 
         return (
-        <div id={this.id} className='application-window' onMouseDown={() => onClick()}>
+        <div id={this.id} className='application-window' onMouseDown={() => onClick()} style={{backgroundColor :this.backgroundColor}}>
              <nav onMouseDown={onHandle} onMouseUp={() => onLossHandle()} > 
-                <span className='close' onClick={() => onClose()}>X</span>
-                <span className='resize' onClick={() => this.onHide()}>Mini</span>
-                <span className='resize' onClick={() => this.onHide()}>resize</span>
+                <span className='close' onClick={() => onClose()}></span>
+                <span className='mini' onClick={() => this.onHide()}></span>
+                <span className='resize' onClick={() => this.onFullScreen()}></span>
              </nav>
              <main>
              {args}
@@ -69,5 +71,11 @@ export class Application {
 
     onHide () {
         windowManager.hideWindow(this.id)
+    }
+
+    onFullScreen () {
+        this.fullScreen ? windowManager.fullExitScreen(this.id) : windowManager.fullScreen(this.id)
+        this.fullScreen = !this.fullScreen
+
     }
 }

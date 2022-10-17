@@ -18,15 +18,28 @@ export const App = () => {
   const onApplicationOpen = (app: Application) => {
     windowManager.createApp(app)
   }
-  
-  const sub = eventListener.subscribe('navHover', (val) => console.log('HELLO', val))
-  sub.unsubscribe()
 
-  console.log(windowManager.getOpenedWindow())
+  let isHovered = false
+  
+  eventListener.subscribe('navHover', (val) => {
+    const navbar = document.getElementById('navbar')
+    if (!navbar) return
+    if (val) {
+      isHovered = true
+      navbar.classList.add('hover')
+    } else {
+      setTimeout(() => {
+        if (!isHovered) navbar.classList.remove('hover')
+      }, 2000)
+      isHovered = false
+
+    }
+  })
 
   return (<div id="app">
     <StatusBar />
-    <nav className='apps' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
+    <div className='hover-listener' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}></div>
+    <nav id='navbar' className='apps' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
       {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button" style={{ backgroundImage: `url('${app.url}')` }} title={app.name}></div>)}
     </nav>
   </div>);
