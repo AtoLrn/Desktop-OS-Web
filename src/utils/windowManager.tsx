@@ -34,14 +34,25 @@ export class WindowManager {
     showWindow (id: string) {
         const elem = document.getElementById(id)
         if (!elem) return
-        elem.style.display = 'block'
         this.top(id)
+        elem.style.top = '100px'
+        elem.style.left = '100px'
+        elem.style.transform = 'scale(1)'
+        elem.style.borderRadius = '0px'
+        setTimeout(() => {
+            elem.style.transition = ''
+        }, 300)
     }
 
     hideWindow (id: string) {
         const elem = document.getElementById(id)
         if (!elem) return
-        elem.style.display = 'none'
+
+        elem.style.top = '100vh'
+        elem.style.left = '100vw'
+        elem.style.transform = 'scale(0.05)'
+        elem.style.borderRadius = '20px'
+        elem.style.transition = '.3s ease-in-out'
     }
 
     closingWindow  (id: string) {
