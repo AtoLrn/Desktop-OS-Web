@@ -6,7 +6,7 @@ const compilerDOM = {
     return {
       render(element: JSX) {
 
-        if (typeof element === "string") {
+        if (typeof element === "string" || typeof element === 'number') {
             createInnerText(htmlElement, element);
             return;
         }
