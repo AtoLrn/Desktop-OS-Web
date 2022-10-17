@@ -49,6 +49,19 @@ export class WindowManager {
         elem.remove()
         this.windowCollection = this.windowCollection.filter(window => window.id !== id)
     }
+
+    top  (id: string) {
+        this.windowCollection.forEach(app => {
+            const elem = document.getElementById(app.id)
+            if (!elem) return
+            elem.style.zIndex = '10'
+            
+        })
+
+        const elem = document.getElementById(id)
+        if (!elem) return
+        elem.style.zIndex = '11'
+    }
 }
 
 export const windowManager = new WindowManager()

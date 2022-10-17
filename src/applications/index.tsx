@@ -45,8 +45,12 @@ export class Application {
             this.holded = false
         }
 
+        const onClick = () => [
+            windowManager.top(this.id)
+        ]
+
         return (
-        <div id={this.id} className='application-window'>
+        <div id={this.id} className='application-window' onMouseDown={() => onClick()}>
              <nav onMouseDown={onHandle} onMouseUp={() => onLossHandle()} > 
                 <span className='close' onClick={() => onClose()}>X</span>
                 <span className='resize' onClick={() => this.onHide()}>Mini</span>

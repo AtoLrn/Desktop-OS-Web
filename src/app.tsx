@@ -1,5 +1,6 @@
 import React from "../jsx-compiler/jsx";
 import { Application } from "./applications";
+import { StatusBar } from "./components/statusBar";
 import "./styles/main.scss"
 import { applications } from "./utils/applications";
 import { eventListener } from "./utils/listener";
@@ -24,7 +25,8 @@ export const App = () => {
   console.log(windowManager.getOpenedWindow())
 
   return (<div id="app">
-    <nav onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
+    <StatusBar />
+    <nav className='apps' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
       {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button"  title={app.name}></div>)}
     </nav>
   </div>);
