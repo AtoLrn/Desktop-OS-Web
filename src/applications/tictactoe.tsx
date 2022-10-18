@@ -10,11 +10,15 @@ export class TicTacToe extends Application {
         super();
     }
 
+    launchGame =  () => {
+        this.render(<p>Hello</p>)
+    }
+
     build = () => {
         return super.build(
         <div className='tictactoe'>
             <h1>TicTacToe</h1>
-            <button>Play</button>
+            <button onClick={() => this.launchGame()}>Play</button>
             <button>History</button>
 
             </div>

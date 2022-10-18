@@ -1,9 +1,11 @@
+import compilerDOM from "../../jsx-compiler/dom";
 import React from "../../jsx-compiler/jsx";
 import { generateId } from "../utils/idGenerator";
 import { windowManager } from "../utils/windowManager";
 
 export class Application {
     id: string
+    appWindow: any
     name = 'applicationTemplate'
     url = 'https://logo.com'
     backgroundColor = 'white'
@@ -19,7 +21,23 @@ export class Application {
         this.id = generateId()
     }
 
+    render (args: any) {
+        const doc = document.querySelector(`#${this.id}`)
+        if (!doc) return
+        const main = doc.getElementsByTagName('main')
+        main[0].remove()
+
+        this.appWindow.render(<main>{args}</main>)
+
+    }
+
     build (args: any) {
+        setTimeout(() => {
+            const appWindow = document.getElementById(this.id)
+            if (!appWindow) return
+            this.appWindow = compilerDOM.createHtml(appWindow);
+        }, 1)
+
         const onClose = () => {
             this.onClose()
             windowManager.closingWindow(this.id)
