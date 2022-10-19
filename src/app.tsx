@@ -3,6 +3,7 @@ import { Application } from "./applications";
 import { StatusBar } from "./components/statusBar";
 import "./styles/main.scss"
 import { applications } from "./utils/applications";
+import { fileSystem } from "./utils/FileSystem";
 import { eventListener } from "./utils/listener";
 import { windowManager } from "./utils/windowManager";
 
@@ -35,6 +36,8 @@ export const App = () => {
 
     }
   })
+
+  fileSystem.save('banane', 'Super')
 
   return (<div id="app">
     <StatusBar />
