@@ -30,7 +30,7 @@ export class Calculator extends Application {
     calculate = (e: Event) => {
         e.preventDefault()
         const result = document.getElementById('result')
-        if(/[^0-9\s\(\)\+\*-\/]/g.test(this.input) && result) {
+        if(/[^0-9%\s\(\)\+\*-\/]/g.test(this.input) && result) {
             result.innerHTML = ""
             return
         }
