@@ -1,0 +1,21 @@
+#app > nav.status {
+    width: 100vw;
+    height: 2em;
+    background-color: var(--light-bg);
+    color: white;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: .5em;
+    padding-right: .5em;
+    > div {
+      font-weight: 800;
+      border-radius: 5px;
+      padding: 0 .5em ;
+  
+    }
+
+    #darkmode {
+      cursor: pointer;
+    }
+  }

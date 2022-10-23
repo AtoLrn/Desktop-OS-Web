@@ -1,14 +1,15 @@
 import React from "../../jsx-compiler/jsx";
-
+import "../styles/status-bar.scss"
 
 export const StatusBar = () => {
 
     const updateBattery = () => {
-        navigator.getBattery().then((bat) => {
+        const nav: any = navigator
+        nav.getBattery().then((bat: any) => {
             const div = document.getElementById('status-battery')
             if (!div) return
             div.innerText = `${Math.round(bat.level * 100)}%`
-            bat.addEventListener('levelchange', (x) => {
+            bat.addEventListener('levelchange', (x: any) => {
                 console.log(x)
                 div.innerText = `${Math.round(bat.level * 100)}%`
             });
@@ -35,8 +36,17 @@ export const StatusBar = () => {
         console.log('fetching weather')
     }
 
+    const toggleThemeMode = () => {
+        if(document.body) {
+            document.body.classList.toggle('darkmode')
+            const el = document.getElementById('darkmode')
+            if(el) el.innerText = document.body.classList.contains('darkmode') ? "dark: ON" : "dark: OFF"
+        }
+    } 
+
     updateBattery()
     updateWeather()
+
 
 
     return (
@@ -49,6 +59,9 @@ export const StatusBar = () => {
         </div>
         <div id='status-weather'>
             Fetching...
+        </div>
+        <div id="darkmode" onClick={toggleThemeMode}>
+            dark: OFF
         </div>
     </nav>
     )

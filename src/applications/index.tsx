@@ -8,7 +8,6 @@ export class Application {
     appWindow: any
     name = 'applicationTemplate'
     url = 'https://logo.com'
-    backgroundColor = 'white'
 
     holded = false
 
@@ -70,7 +69,7 @@ export class Application {
         ]
 
         return (
-        <div id={this.id} className='application-window' onMouseDown={() => onClick()} style={{backgroundColor :this.backgroundColor}}>
+        <div id={this.id} className='application-window' onMouseDown={() => onClick()}>
              <nav onMouseDown={onHandle} onMouseUp={() => onLossHandle()} > 
                 <span className='close' onClick={() => onClose()}></span>
                 <span className='mini' onClick={() => this.onHide()}></span>

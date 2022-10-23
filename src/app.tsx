@@ -1,7 +1,7 @@
 import React from "../jsx-compiler/jsx";
-import { Application } from "./applications";
 import { StatusBar } from "./components/statusBar";
 import "./styles/main.scss"
+import { AppType } from "./types/application";
 import { applications } from "./utils/applications";
 import { fileSystem } from "./utils/FileSystem";
 import { eventListener } from "./utils/listener";
@@ -16,7 +16,7 @@ export const App = () => {
     eventListener.post('navHover', false)
   }
 
-  const onApplicationOpen = (app: Application) => {
+  const onApplicationOpen = (app: AppType<any>) => {
     windowManager.createApp(app)
   }
 

@@ -1,10 +1,10 @@
 import compilerDOM from "../../jsx-compiler/dom"
 import { Application } from "../applications"
+import { AppType } from "../types/application"
 
 export class WindowManager {
     windowCollection: Application[] = []
     root: any
-
 
     getAppElement () {
         if (this.root) return this.root
@@ -14,8 +14,7 @@ export class WindowManager {
         return this.root
     }
 
-
-    createApp (app: Application) {
+    createApp (app: AppType<any>) {
         const exist = this.windowCollection.find(window => window.name === app.name)
         if (exist) { 
             this.showWindow(exist.id)
@@ -55,14 +54,14 @@ export class WindowManager {
         elem.style.transition = '.3s ease-in-out'
     }
 
-    closingWindow  (id: string) {
+    closingWindow (id: string) {
         const elem = document.getElementById(id)
         if (!elem) return
         elem.remove()
         this.windowCollection = this.windowCollection.filter(window => window.id !== id)
     }
 
-    top  (id: string) {
+    top (id: string) {
         this.windowCollection.forEach(app => {
             const elem = document.getElementById(app.id)
             if (!elem) return
@@ -89,8 +88,8 @@ export class WindowManager {
         this.top(id)
         const elem = document.getElementById(id)
         if (!elem) return
-        elem.style.width = '500px'
-        elem.style.height = '500px'
+        elem.style.width = '550px'
+        elem.style.height = '550px'
         elem.style.top = '100px'
         elem.style.left = '100px'
     }
