@@ -1,7 +1,7 @@
 import compilerDOM from "../../jsx-compiler/dom"
 import { Application } from "../applications"
 import { AppType } from "../types/application"
-
+import { isMobile } from "./checkMobile"
 export class WindowManager {
     windowCollection: Application[] = []
     root: any
@@ -31,27 +31,38 @@ export class WindowManager {
     }
 
     showWindow (id: string) {
-        const elem = document.getElementById(id)
-        if (!elem) return
+        const { style } = document.getElementById(id) as HTMLElement
+        if (!style) return
         this.top(id)
-        elem.style.top = '100px'
-        elem.style.left = '100px'
-        elem.style.transform = 'scale(1)'
-        elem.style.borderRadius = '0px'
+        
+        if (isMobile()) {
+            style.top = '0px'
+            style.left = '0px'
+            style.borderRadius = '0px'
+        }else {
+            style.top = '100px'
+            style.left = '100px'
+            style.borderRadius = '20px'
+        }
+
+        style.transform = 'scale(1)'
         setTimeout(() => {
-            elem.style.transition = ''
+            style.transition = ''
         }, 300)
     }
 
     hideWindow (id: string) {
-        const elem = document.getElementById(id)
-        if (!elem) return
+        const { style } = document.getElementById(id) as HTMLElement
+        if (!style) return
 
-        elem.style.top = '100vh'
-        elem.style.left = '100vw'
-        elem.style.transform = 'scale(0.05)'
-        elem.style.borderRadius = '20px'
-        elem.style.transition = '.3s ease-in-out'
+        style.top = '100vh'
+        style.left = '100vw'
+        style.transform = 'scale(0.05)'
+        style.transition = '.3s ease-in-out'
+    }
+
+    hideAll() {
+        this.windowCollection.forEach(app => { this.hideWindow(app.id)})
     }
 
     closingWindow (id: string) {

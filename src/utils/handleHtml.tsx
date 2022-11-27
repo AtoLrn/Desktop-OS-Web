@@ -1,6 +1,5 @@
-
 export const setValueInput = (id: string, value: string) => {
-    const el = document.getElementById(id)
+    const el = document.getElementById(id) as HTMLInputElement
     if(el === null) return value
     if(value === null) {
         value = el.value
@@ -10,3 +9,9 @@ export const setValueInput = (id: string, value: string) => {
     return el.value
     
 }
+
+export const htmlById = (id: string) => {
+    return document.getElementById(id) as HTMLElement
+}
+
+

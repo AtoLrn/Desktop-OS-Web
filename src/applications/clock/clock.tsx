@@ -6,7 +6,7 @@ import {Timer} from "./timer";
 
 export class Clock extends Application {
     name = 'Clock'
-    public static url = 'https://i.pinimg.com/originals/03/fd/28/03fd284948387458641483ef58822e3c.png'
+    url = 'https://i.pinimg.com/originals/03/fd/28/03fd284948387458641483ef58822e3c.png'
     backgroundColor = 'white'
 
     constructor() {

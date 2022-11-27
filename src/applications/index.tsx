@@ -11,7 +11,7 @@ export class Application {
 
     holded = false
 
-    offset = [ 0, 0]
+    offset = [0, 0]
 
     moveListener = null
     fullScreen = false
