@@ -1,13 +1,14 @@
 import { Application } from "."
 import React from "../../jsx-compiler/jsx";
-import { setValueInput } from "../utils/input";
+import { setValueInput } from "../utils/handleHtml";
 
 import "../styles/apps/calculator.scss"
 
 
 export class Calculator extends Application {
     name = "Calculator"
-    public static url = "/logo-app/calculator.jpg"
+    url = "/logo-app/calculator.jpg"
+
     buttons = ['(', ')', '%', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '*', '+', '/', '-']
     input = ""
 
