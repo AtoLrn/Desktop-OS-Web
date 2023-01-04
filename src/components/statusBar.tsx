@@ -95,7 +95,7 @@ export const StatusBar = () => {
         <div id="local-time"></div>
         <div id="local-date"></div>
         <div id="network-state"><div id="network-type"></div><div id="network-speed"></div></div>
-        {isVibrationEnabled ? <div><img src="https://www.svgrepo.com/show/334132/mobile-vibration.svg" alt="vibration-mode" /></div> : <div></div>}
+        {isVibrationEnabled ? <div id="vibration-status"><img src="https://www.svgrepo.com/show/334132/mobile-vibration.svg" alt="vibration-mode"/></div> : <div></div>}
     </nav>
     )
 }
