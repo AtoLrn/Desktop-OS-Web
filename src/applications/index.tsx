@@ -3,6 +3,15 @@ import React from "../../jsx-compiler/jsx";
 import { generateId } from "../utils/idGenerator";
 import { windowManager } from "../utils/windowManager";
 
+export const toggleThemeMode = () => {
+    const isDarkModeEnabled = localStorage.getItem('darkMode') === 'true' ? true : false
+
+    if (isDarkModeEnabled) {
+        document.body.classList.add('darkmode')
+    } else {
+        document.body.classList.remove('darkmode')
+    }
+} 
 export class Application {
     id: string
     appWindow: any
@@ -18,6 +27,7 @@ export class Application {
 
     constructor() {
         this.id = generateId()
+        toggleThemeMode()
     }
 
     render (args: any) {
