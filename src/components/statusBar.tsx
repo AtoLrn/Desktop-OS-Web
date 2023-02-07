@@ -1,23 +1,34 @@
 import React from "../../jsx-compiler/jsx";
 import "../styles/status-bar.scss"
 
+export const updateBattery = () => {
+    const nav: any = navigator
+    nav.getBattery().then((bat: any) => {
+        const isBatteryDisplayed = localStorage.getItem('batteryDisplay') === 'true' ? true : false
+        const div = document.getElementById('status-battery')
+
+        if (!div) return
+        
+        const updateFunction = (x: any) => {
+            console.log(x)
+            div.innerText = `${Math.round(bat.level * 100)}%`
+        }
+
+        if (!isBatteryDisplayed) { 
+            div.innerHTML = ''
+            bat.removeEventListener('levelchange', updateFunction)
+            return
+        }
+        
+        div.innerText = `${Math.round(bat.level * 100)}%`
+        bat.addEventListener('levelchange', updateFunction);
+    })
+}
+
 export const StatusBar = () => {
 
     // need to be modified in the controle center
     const isVibrationEnabled = true
-
-    const updateBattery = () => {
-        const nav: any = navigator
-        nav.getBattery().then((bat: any) => {
-            const div = document.getElementById('status-battery')
-            if (!div) return
-            div.innerText = `${Math.round(bat.level * 100)}%`
-            bat.addEventListener('levelchange', (x: any) => {
-                console.log(x)
-                div.innerText = `${Math.round(bat.level * 100)}%`
-            });
-        })
-    }
 
     // const updateWeather = () => {
     //     if (navigator.geolocation) {
@@ -39,22 +50,18 @@ export const StatusBar = () => {
     //     console.log('fetching weather')
     // }
 
-    // const toggleThemeMode = () => {
-    //     if(document.body) {
-    //         document.body.classList.toggle('darkmode')
-    //         const el = document.getElementById('darkmode')
-    //         if(el) el.innerText = document.body.classList.contains('darkmode') ? "dark: ON" : "dark: OFF"
-    //     }
-    // } 
-
     const displayLocalTime = () => {
         const localTimeDiv = document.querySelector('#local-time')
         const localDateDiv = document.querySelector('#local-date')
 
+        const isHoursDisplayed = localStorage.getItem('hoursDisplay') === 'true' ? true : false
+        const isMinutesDisplayed = localStorage.getItem('minutesDisplay') === 'true' ? true : false
+        const isSecondsDisplayed = localStorage.getItem('secondsDisplay') === 'true' ? true : false
+
         const localTime = new Date()
 
         if (localTimeDiv) {
-            localTimeDiv.innerHTML = localTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+            localTimeDiv.innerHTML = localTime.toLocaleTimeString([], {hour: isHoursDisplayed ? '2-digit' : undefined, minute: isMinutesDisplayed ? '2-digit' : undefined, second: isSecondsDisplayed ? '2-digit' : undefined})
         }
 
         if (localDateDiv) {
@@ -72,7 +79,7 @@ export const StatusBar = () => {
         networkTypeDiv.innerHTML = nav.connection.effectiveType
         networkSpeedDiv.innerHTML = `${nav.connection.downlink} Mbps`
     }
-
+    
     updateBattery()
     // updateWeather()
     setInterval(displayLocalTime, 1000)
@@ -80,17 +87,12 @@ export const StatusBar = () => {
 
     return (
     <nav className='status'>
-        <div id='status-battery'>
-            searching...
-        </div>
+        <div id='status-battery'></div>
         {/* <div id='status-temp'>
             Fetching...
         </div>
         <div id='status-weather'>
             Fetching...
-        </div>
-        <div id="darkmode" onClick={toggleThemeMode}>
-            dark: OFF
         </div> */}
         <div id="local-time"></div>
         <div id="local-date"></div>
