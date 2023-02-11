@@ -58,6 +58,13 @@ export const StatusBar = () => {
         const isMinutesDisplayed = localStorage.getItem('minutesDisplay') === 'true' ? true : false
         const isSecondsDisplayed = localStorage.getItem('secondsDisplay') === 'true' ? true : false
 
+        const isDateDisplayed = localStorage.getItem('dateDisplay') === 'true' ? true : false
+        const isDaysDisplayed = localStorage.getItem('daysDisplay') === 'true' ? true : false
+        const isMonthDisplayed = localStorage.getItem('monthDisplay') === 'true' ? true : false
+        const isYearDisplayed = localStorage.getItem('yearDisplay') === 'true' ? true : false
+
+        const dateOptions = {day: isDaysDisplayed ? 'numeric' : undefined, month: isMonthDisplayed ? 'numeric' : undefined, year: isYearDisplayed ? 'numeric' : undefined } as const
+
         const localTime = new Date()
 
         if (localTimeDiv) {
@@ -65,7 +72,11 @@ export const StatusBar = () => {
         }
 
         if (localDateDiv) {
-            localDateDiv.innerHTML = localTime.toLocaleDateString()
+            if (isDateDisplayed && (isDaysDisplayed || isMonthDisplayed || isYearDisplayed)) {
+                localDateDiv.innerHTML = localTime.toLocaleDateString('en-GB', dateOptions)
+            } else {
+                localDateDiv.innerHTML = ''
+            }
 
         }
     }
