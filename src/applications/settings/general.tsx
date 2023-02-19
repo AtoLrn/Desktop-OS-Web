@@ -10,7 +10,7 @@ export const General = () => {
 
     return (
         <section className="settings-container" id="general">
-            <button onClick={() => {changePanel(<MainPage/>, 'general')}}>lala</button>
+            <button onClick={() => {changePanel(<MainPage/>, 'general')}}>Back to Menu</button>
             <h1>General</h1>
             <div>
                 <section>
