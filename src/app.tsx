@@ -4,13 +4,21 @@ import { StatusBar } from "./components/statusBar";
 import "./styles/main.scss"
 import { AppType } from "./types/application";
 import { applications } from "./utils/applications";
-import { fileSystem } from "./utils/FileSystem";
 import { swipeListener } from "./utils/handleSwipe";
 import { eventListener } from "./utils/listener";
 import { windowManager } from "./utils/windowManager";
+import { handleLock } from "./utils/handleLock";
+import { LockedScreen } from "./components/lockedScreen";
+import { toggleThemeMode } from "./applications";
+import { handleSettingJson } from "./utils/handleSettingJson";
+
+
 
 export const App = () => {
+
+  handleSettingJson.init()
   swipeListener.startListening()
+  toggleThemeMode()
 
   const onHoverNav = () => {
     eventListener.post('navHover', true)
@@ -23,15 +31,15 @@ export const App = () => {
   const onApplicationOpen = (app: AppType<any>) => {
     swipeListener.closeMenu()
     windowManager.createApp(app)
-    refreshCurrentApps()
+    refreshCurrentAppsHeaders()
   }
 
   const closeApp = (id: string) => {
     windowManager.closingWindow(id)
-    refreshCurrentApps()
+    refreshCurrentAppsHeaders()
   }
 
-  const refreshCurrentApps = () => {
+  const refreshCurrentAppsHeaders = () => {
     const apps = document.getElementById('navbar')
     if(!apps) return
     apps.innerHTML = ""
@@ -60,25 +68,48 @@ export const App = () => {
     }
   })
 
-  fileSystem.save('banane', 'Super')
+  const reRenderApp = (locked?: boolean) => {
+    if (locked) {
+      windowManager.hideAll()
+    }
+    const rootElement = document.getElementById("root") as HTMLElement
+    rootElement.innerHTML = "";
+    const root = compilerDOM.createHtml(rootElement)
+    root.render( locked ? <LockedScreen reRenderApp={reRenderApp} /> : htmlApp())  
+    
+    if (!locked) {
+      windowManager.refreshApps()
+    }
+    refreshCurrentAppsHeaders()
+  }
 
-  return (<div id="app">
-    <StatusBar />
-    <div className="all-apps">
-      {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button" style={{ backgroundImage: `url('${new app().url}')` }} title={app.name}></div>)}
-    </div>
-    <div className='hover-listener' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}></div>
-    <nav id='navbar' className='apps' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
-      {
-        windowManager.getOpenedWindow().map((app: any, index) => {
-          return <div 
-            onClick={() => onApplicationOpen(app)}  
-            key={index} className="app-button" 
-            style={{ backgroundImage: `url('${app.url}')` }} 
-            title={app.name}> <span>x</span>
-          </div>
-        })
-      }
-    </nav>
-  </div>);
+  const htmlApp = () => {
+    return (<div id="app">
+      <StatusBar reRenderApp={reRenderApp} />
+      <div className="all-apps">
+        {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button" style={{ backgroundImage: `url('${new app().url}')` }} title={app.name}></div>)}
+      </div>
+      <div className='hover-listener' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}></div>
+      <nav id='navbar' className='apps' onMouseEnter={onHoverNav} onMouseLeave={onHoverLeftNav}>
+        {
+          windowManager.getOpenedWindow().map((app: any, index) => {
+            return <div 
+              onClick={() => onApplicationOpen(app)}  
+              key={index} className="app-button" 
+              style={{ backgroundImage: `url('${app.url}')` }} 
+              title={app.name}> <span>x</span>
+            </div>
+          })
+        }
+      </nav>
+    </div>)
+  }
+
+  if (handleLock.isLocked() ) {
+    return (
+      <LockedScreen reRenderApp={reRenderApp} />
+    )
+  }
+
+  return htmlApp()
 };

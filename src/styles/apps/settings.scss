@@ -1,8 +1,8 @@
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height: 24px;
   }
   
   /* Hide default HTML checkbox */
@@ -20,7 +20,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    background-color: var(--bg-color);
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -28,27 +28,27 @@
   .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 3px;
+    background-color: var(--light-bg);
     -webkit-transition: .4s;
     transition: .4s;
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: var(--blue);
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px var(--blue);
   }
   
   input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -webkit-transform: translateX(27px);
+    -ms-transform: translateX(27px);
+    transform: translateX(27px);
   }
   
   /* Rounded sliders */
@@ -70,25 +70,48 @@
       
         display: flex;
         flex-direction: column;
-        align-items: center;
+        padding: 24px;
+        gap: 16px;
 
-        h1 {
-            margin: 30px 0;
-        }
-    }
+        .section-settings {
+          background-color: var(--light-bg);
+          border-radius: 12px;
+          display: flex;
+          flex-direction: column;
+          
+          padding: 6px 18px;
+          .btn {
+            background-color: transparent;
+            text-align: left;
+            border: none;
+            padding: 12px 0px;
+            color: var(--text-color);
 
-    #main-page {
-        div {
-            width: 100%;
-            padding: 0 20px;
-            gap: 5px;
-            display: flex;
-            flex-direction: column;
-    
-            button {
-                display: flex;
+            &:not(:last-child) {
+              border-bottom: 1px var(--bg-color) solid;
             }
+          }
         }
     }
 
+}
+
+.back {
+  background-color: transparent;
+  text-align: left;
+  border: none;
+  color: var(--text-color);
+  padding: 0;
+
+  p {
+    font-size: 16px;
+  }
+}
+
+.container-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
 }

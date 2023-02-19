@@ -49,6 +49,10 @@ class SwipeListener extends ActionMobile {
     }
     
     swipeUp = () => {
+        if(localStorage.getItem('isLocked') == 'true') {
+            return
+        }
+        
         if(!this.isMenuOpen && this.yStart && this.yStart > window.innerHeight - 200 && windowManager.getOpenedWindow().length > 0) {
             this.openMenu()
         }
