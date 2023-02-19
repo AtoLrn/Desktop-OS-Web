@@ -22,7 +22,6 @@ export class WindowManager {
         } 
         const appInstance = new app()
         this.getAppElement().render(appInstance.build())
-        console.log('Opening: ', appInstance.name, ' with ID: ', appInstance.id)
         this.windowCollection.push(appInstance)
     }
 
@@ -31,24 +30,31 @@ export class WindowManager {
     }
 
     showWindow (id: string) {
-        const { style } = document.getElementById(id) as HTMLElement
-        if (!style) return
+        const el = document.getElementById(id) as HTMLElement
+        if (!el?.style) return
         this.top(id)
         
         if (isMobile()) {
-            style.top = '0px'
-            style.left = '0px'
-            style.borderRadius = '0px'
+            el.style.top = '32px'
+            el.style.left = '0px'
+            el.style.borderRadius = '0px'
         }else {
-            style.top = '100px'
-            style.left = '100px'
-            style.borderRadius = '20px'
+            el.style.top = '100px'
+            el.style.left = '100px'
+            el.style.borderRadius = '20px'
         }
 
-        style.transform = 'scale(1)'
+        el.style.transform = 'scale(1)'
         setTimeout(() => {
-            style.transition = ''
+            el.style.transition = ''
         }, 300)
+    }
+
+    refreshApps() {
+        this.root = undefined
+        this.windowCollection.forEach((app) => {
+            this.getAppElement().render(app.build())
+        })
     }
 
     hideWindow (id: string) {

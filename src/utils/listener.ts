@@ -29,10 +29,6 @@ class EventListener {
 
     private subscriptions: Subscriptions = {}
 
-    constructor() {
-        console.log('subscribe')
-    }
-
     public subscribe(topic: string, callback:  (value: string | boolean | object | Application) => void) {
         const id = 'test'
         if (this.subscriptions[topic]) this.subscriptions[topic].push({ callback, id})
@@ -41,7 +37,6 @@ class EventListener {
     }
 
     private unsubscribe = (topic: string, id: string) => {
-        console.log('UNSUB', topic, id)
         this.subscriptions[topic] = this.subscriptions[topic].filter(sub => sub.id !== id)
     }
 

@@ -1,8 +1,10 @@
 // import { MainPage } from ".";
 import compilerDOM from "../../../jsx-compiler/dom";
 import React from "../../../jsx-compiler/jsx";
+import { handleSettingJson, JsonSettings } from "../../utils/handleSettingJson";
 import { DateAndTime } from "./date-time";
 import { General } from "./general";
+import { Security } from "./security";
 
 const panels = [
     // {
@@ -16,6 +18,10 @@ const panels = [
     {
         id: 'date-time',
         element: <DateAndTime/>
+    },
+    {
+        id: 'security',
+        element: <Security />
     },
     {
         id: 'vibration',
@@ -39,11 +45,11 @@ export const changePanel = (elementToDisplayId: string | (() => any), elementToH
     compilerDOM.createHtml(container).render(elementToDisplay)
 }
 
-export const switchElemDisplay = (value: any, elem: string, callBack?: () => void) => {
+export const switchElemDisplay = (value: any, elem: keyof JsonSettings, callBack?: () => void) => {
     const isChecked = value.target.checked
 
     if (typeof isChecked === 'boolean') {
-        localStorage.setItem(elem, isChecked ? 'true' : 'false')
+        handleSettingJson.set(elem, isChecked ? 'true' : 'false')
         if (callBack) { callBack() }
     }
 }

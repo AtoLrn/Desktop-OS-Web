@@ -1,6 +1,6 @@
-import { MainPage } from "."
 import React from "../../../jsx-compiler/jsx"
-import { changePanel, switchElemDisplay } from "./utils"
+import { BackBtn } from "./backBtn"
+import { switchElemDisplay } from "./utils"
 
 export const DateAndTime = () => {
     const isHoursDisplayed = localStorage.getItem('hoursDisplay') === 'true' ? true : false
@@ -14,65 +14,63 @@ export const DateAndTime = () => {
     
     return (
         <section className="settings-container" id="date-time">
-            <button onClick={() => {changePanel(<MainPage/>, 'date-time')}}>Back to Menu</button>
+            <BackBtn cat={'date-time'} />
             <h1>Date & Time</h1>
-            <div>
-                <section>
-                    <h3>Time</h3>
-                    <div>
-                        <h4>Display hours: </h4>
+            <section className="section-settings">
+                    <h2 className="container-checkbox">Time</h2>
+                    <div className="container-checkbox">
+                        <h4>Display hours </h4>
                         <label className="switch">
                             <input onChange={(value: any) => switchElemDisplay(value, 'hoursDisplay')} checked={isHoursDisplayed} type="checkbox"></input>
                             <span className="slider round"></span>
                         </label>
                     </div>
-                    <div>
-                        <h4>Display minutes: </h4>
+                    <div className="container-checkbox">
+                        <h4>Display minutes </h4>
                         <label className="switch">
                             <input onChange={(value: any) => switchElemDisplay(value, 'minutesDisplay')} checked={isMinutesDisplayed} type="checkbox"></input>
                             <span className="slider round"></span>
                         </label>
                     </div>
-                    <div>
-                        <h4>Display seconds: </h4>
+                    <div className="container-checkbox">
+                        <h4>Display seconds </h4>
                         <label className="switch">
                             <input onChange={(value: any) => switchElemDisplay(value, 'secondsDisplay')} checked={isSecondsDisplayed} type="checkbox"></input>
                             <span className="slider round"></span>
                         </label>
                     </div>
                 </section>
-                <section>
-                    <h3>Date</h3>
-                    <div>
-                        <h4>Display date: </h4>
+                <section className="section-settings">
+                    <h2 className="container-checkbox">Date</h2>
+                    <div className="container-checkbox">
+                        <h4>Display date </h4>
                         <label className="switch">
                             <input onChange={(value: any) => switchElemDisplay(value, 'dateDisplay')} checked={isDateDisplayed} type="checkbox"></input>
                             <span className="slider round"></span>
                         </label>
                     </div>
-                    <div>
-                        <h4>Display days: </h4>
+                    <div className="container-checkbox">
+                        <h4>Display days </h4>
                         <label className="switch">
                             <input disabled={!isDateDisplayed} onChange={(value: any) => switchElemDisplay(value, 'daysDisplay')} checked={isDaysDisplayed} type="checkbox"></input>
                             <span className="slider round"></span>
                         </label>
                     </div>
-                    <div>
-                        <h4>Display month: </h4>
+                    <div className="container-checkbox">
+                        <h4>Display month </h4>
                         <label className="switch">
                             <input disabled={!isDateDisplayed} onChange={(value: any) => switchElemDisplay(value, 'monthDisplay')} checked={isMonthDisplayed} type="checkbox"></input>
                             <span className="slider round"></span>
                         </label>
                     </div>
-                    <div>
-                        <h4>Display year: </h4>
+                    <div className="container-checkbox">
+                        <h4>Display year </h4>
                         <label className="switch">
                             <input disabled={!isDateDisplayed} onChange={(value: any) => switchElemDisplay(value, 'yearDisplay')} checked={isYearDisplayed} type="checkbox"></input>
                             <span className="slider round"></span>
                         </label>
                     </div>
                 </section>
-            </div>
         </section>
     )
 }

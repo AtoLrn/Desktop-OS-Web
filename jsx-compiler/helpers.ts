@@ -8,9 +8,15 @@ export const createInnerText = (parent: JSX, string: string) => {
 export const createElement = (element: JSX) => {
     return Object.entries(element.attributes).reduce((newElement, [name, value]) => {
 
+        if (name === 'clipPath') {
+            newElement['clip-path'] = value  
+            return newElement;
+        }
+
         if (name === 'style') {
-            Object.entries(value).forEach(([cssName, cssValue]) => {
-                newElement.style[cssName] = cssValue
+            // @ts-expect-error style always object
+            Object.entries(value).forEach(([cssProperty, cssValue]) => { 
+                newElement.style[cssProperty] = cssValue
             })
             return newElement;
         }
@@ -21,12 +27,14 @@ export const createElement = (element: JSX) => {
         }
 
         newElement[name] = value;
+
         return newElement;
 
     }, document.createElement(element.name))
 };
 
 export const isComponent = (el: JSX) => {
-    return el.attributes !== undefined 
+    return el !== null
+        && el.attributes !== undefined 
         && typeof el.name === "function"
 }

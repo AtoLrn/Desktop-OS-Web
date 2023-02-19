@@ -27,7 +27,6 @@ export class Application {
 
     constructor() {
         this.id = generateId()
-        toggleThemeMode()
     }
 
     render (args: any) {
@@ -40,7 +39,7 @@ export class Application {
 
     }
 
-    build (args: any) {
+    build (args?: any) {
         setTimeout(() => {
             const appWindow = document.getElementById(this.id)
             if (!appWindow) return

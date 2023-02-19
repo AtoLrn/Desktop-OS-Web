@@ -65,7 +65,6 @@ export class FileSystem {
     save(name: string, content: string, parentId = 0): File | false 
         {
         const parent = this._getInode(parentId)
-        console.log(parent)
         if (!isDirectory(parent)) return false
 
         const id = shortNumberId()
@@ -77,7 +76,6 @@ export class FileSystem {
 
         parent.content.push(id)
         this._saveInode(id, file)
-        console.log(this.inodes)
         return file
     }
 

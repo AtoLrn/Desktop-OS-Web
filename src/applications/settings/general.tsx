@@ -1,8 +1,8 @@
-import { MainPage } from ".";
 import { toggleThemeMode } from "..";
 import React from "../../../jsx-compiler/jsx";
 import { updateBattery } from "../../components/statusBar";
-import { changePanel, switchElemDisplay } from "./utils";
+import { BackBtn } from "./backBtn"
+import { switchElemDisplay } from "./utils";
 
 export const General = () => {
     const isBatteryDisplayed = localStorage.getItem('batteryDisplay') === 'true' ? true : false
@@ -10,24 +10,24 @@ export const General = () => {
 
     return (
         <section className="settings-container" id="general">
-            <button onClick={() => {changePanel(<MainPage/>, 'general')}}>Back to Menu</button>
+            <BackBtn cat={'general'} />
             <h1>General</h1>
-            <div>
-                <section>
+            <section className="section-settings">
+                <div className="container-checkbox">
                     <h3>Battery display</h3>
                     <label className="switch">
                         <input onChange={(value: any) => {switchElemDisplay(value, 'batteryDisplay', updateBattery)}} checked={isBatteryDisplayed} type="checkbox"></input>
                         <span className="slider round"></span>
                     </label>
-                </section>
-                <section>
+                </div>
+                <div className="container-checkbox">
                     <h3>Dark Mode</h3>
                     <label className="switch">
                         <input onChange={(value: any) => {switchElemDisplay(value, 'darkMode', toggleThemeMode)}} checked={isDarkModeEnabled} type="checkbox"></input>
                         <span className="slider round"></span>
                     </label>
-                </section>
-            </div>
+                </div>
+            </section>
         </section>
     )
 }

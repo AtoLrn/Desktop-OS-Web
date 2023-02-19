@@ -1,5 +1,6 @@
 import React from "../../jsx-compiler/jsx";
-import "../styles/status-bar.scss"
+import "../styles/status-bar.scss" 
+import { handleLock } from "../utils/handleLock";
 
 export const updateBattery = () => {
     const nav: any = navigator
@@ -15,9 +16,11 @@ export const updateBattery = () => {
         }
 
         if (!isBatteryDisplayed) { 
-            div.innerHTML = ''
+            div.style.display = 'none'
             bat.removeEventListener('levelchange', updateFunction)
             return
+        }else {
+            div.style.display = 'block'
         }
         
         div.innerText = `${Math.round(bat.level * 100)}%`
@@ -25,7 +28,7 @@ export const updateBattery = () => {
     })
 }
 
-export const StatusBar = () => {
+export const StatusBar = ({ reRenderApp } : { reRenderApp: (lock?: boolean) => void }) => {
 
     // need to be modified in the controle center
     const isVibrationEnabled = true
@@ -36,7 +39,6 @@ export const StatusBar = () => {
     //             const { latitude, longitude } = loc.coords
     //             const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${'35f20df55d8f5a1c451cbf8344b6a4ac'}&units=metric`)
     //             const data = await res.json()
-    //             console.log()
     //             const div = document.getElementById('status-temp')
     //             if (!div) return
     //             div.innerText = `${Math.round(data.main.temp)}°C`
@@ -47,7 +49,6 @@ export const StatusBar = () => {
     //         });
     //       } else {
     //       }
-    //     console.log('fetching weather')
     // }
 
     const displayLocalTime = () => {
@@ -84,9 +85,11 @@ export const StatusBar = () => {
     const displayNetworkState = () => {
         const networkTypeDiv = document.getElementById('network-type')
         const networkSpeedDiv = document.getElementById('network-speed')
-        if (!networkSpeedDiv || !networkTypeDiv) return
 
         const nav: any = navigator
+
+        if (!networkSpeedDiv || !networkTypeDiv || !nav.connection?.effectiveType) return
+
         networkTypeDiv.innerHTML = nav.connection.effectiveType
         networkSpeedDiv.innerHTML = `${nav.connection.downlink} Mbps`
     }
@@ -107,8 +110,9 @@ export const StatusBar = () => {
         </div> */}
         <div id="local-time"></div>
         <div id="local-date"></div>
-        <div id="network-state"><div id="network-type"></div><div id="network-speed"></div></div>
         {isVibrationEnabled ? <div id="vibration-status"><img src="https://www.svgrepo.com/show/334132/mobile-vibration.svg" alt="vibration-mode"/></div> : <div></div>}
+        <div id="network-state"><div id="network-type"></div><div id="network-speed"></div></div>
+        <div id="lock" onClick={() => { handleLock.lock(); reRenderApp(true) }}> Lock </div>
     </nav>
     )
 }

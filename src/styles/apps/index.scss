@@ -63,7 +63,7 @@
         cursor: pointer;
         height: 72px;
         width: 72px;
-        background-color: blue;
+        background-color: var(--bg-color);
         border-radius: 10px;
         background-position: center;
         background-size: cover;
@@ -93,10 +93,15 @@
 }
 
 .all-apps {
-    display: flex;
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fill, 64px);
+    flex-wrap: wrap;
+
     padding: 64px;
     gap: 64px;
     @include breakpoint(tablet) {
+        grid-template-columns: repeat(auto-fill, 64px);
         padding: 24px;
         gap: 24px;
     }
