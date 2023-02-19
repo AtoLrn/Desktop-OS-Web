@@ -79,6 +79,20 @@ export const Timer = () => {
         }
     }
 
+    const timerNotify = () => {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification")
+        } else if (Notification.permission === "granted") {
+            new Notification("Timer finished!")
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    new Notification("Timer finished!")
+                }
+            })
+        }
+    }
+
     const onCancelTimer = () => {
         const startButtonDiv = document.getElementById('startButtonTimer')
         const stopButtonDiv = document.getElementById('stopButtonTimer')
@@ -96,6 +110,8 @@ export const Timer = () => {
         const audio = new Audio("https://lasonotheque.org/UPLOAD/wav/1111.wav")
         audio.play()
         window.navigator.vibrate(500)
+        timerNotify()
+
 
         hours = undefined
         seconds = undefined
