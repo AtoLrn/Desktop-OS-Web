@@ -1,5 +1,5 @@
 .clock-container {
-  height: 100%;
+  height: calc(100% - 2em);
   background-color: var(--bg-color);
   width: 100%;
   margin: 0 ;
@@ -16,12 +16,18 @@
 
   .nav-bar {
     display: flex;
-    border: 1px solid black;
 
     height: 70px;
 
     button {
       flex: 1;
+      background: none;
+      color: inherit;
+      border: none;
+
+      img {
+        width: 50px;
+      }
     }
   }
 
@@ -31,6 +37,18 @@
 
     justify-content: center;
     align-items: center;
+
+    #chronometerButtons {
+      margin-top: 15px;
+
+      button {
+        width: 60px;
+        background: none;
+        color: inherit;
+        border: none;
+        font-size: larger;
+      }
+    }
   }
 
   #timer {
@@ -39,5 +57,24 @@
 
     justify-content: center;
     align-items: center;
+
+    #timerInput {
+      input {
+        width: 30px;
+        margin: 0 15px;
+      }
+    }
+
+    #timerButton {
+      margin-top: 15px;
+
+      button {
+        width: 60px;
+        background: none;
+        color: inherit;
+        border: none;
+        font-size: larger;
+      }
+    }
   }
 }
