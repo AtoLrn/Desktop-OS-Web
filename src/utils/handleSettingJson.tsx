@@ -1,47 +1,34 @@
-import fs from 'vite-plugin-fs/browser';
-
-
-export interface JsonSettings {
-    pwd?: string
-    enablePwd?: string
-    darkMode?: string
-    hoursDisplay?: string
-    minutesDisplay?: string
-    secondsDisplay?: string
-    batteryDisplay?: string
-    daysDisplay?: string
-    monthDisplay?: string
-    yearDisplay?: string
-    dateDisplay?: string
-    fileSystem?: any
+const jsonSettings = {
+    enablePwd: 'true',
+    darkMode: 'true',
+    hoursDisplay: 'true',
+    minutesDisplay: 'true',
+    secondsDisplay: 'true',
+    batteryDisplay: 'true',
+    daysDisplay: 'true',
+    monthDisplay: 'true',
+    yearDisplay: 'true',
+    dateDisplay: 'true'
 }
 
-class HandleSettingJson {
-    settings: JsonSettings = {}
-    init() {
-        fetch('/settings-app.json')
-            .then((res) => res.json())
-            .then(res => { 
-                this.settings = res 
-                this.loadSettingInLocalStorage()
-            })
+export const importSettings = (object: Record<string, string>): boolean => {
+    if (Object.keys(object).length > Object.keys(jsonSettings).length) {
+        return false
     }
-
-    loadSettingInLocalStorage() {
-
-        if(this.settings) {
-            Object.entries(this.settings).forEach(([key, val]) => {
-                localStorage.setItem(key, val)
-            })
+    Object.entries(object).forEach(([key, val]) => {
+        if (key in jsonSettings && ['true', 'false'].includes(val)) {
+            localStorage.setItem(key, val)
         }
-    }
-
-    async set(key: keyof JsonSettings, value: any) {
-        localStorage.setItem(key, value)
-        this.settings[key] = value 
-
-        fs.writeFile('/settings-app.json', JSON.stringify(this.settings));
-    }
+    })
+    return true
 }
 
-export const handleSettingJson = new HandleSettingJson()
+export const exportSettings = (): boolean => {
+    return Object.entries(jsonSettings).reduce((res: any, [key]) => {
+        const data = localStorage.getItem(key)
+        if(data) {
+            res[key] = data
+        }
+        return res
+    }, {})
+}

@@ -1,9 +1,9 @@
 // import { MainPage } from ".";
 import compilerDOM from "../../../jsx-compiler/dom";
 import React from "../../../jsx-compiler/jsx";
-import { handleSettingJson, JsonSettings } from "../../utils/handleSettingJson";
 import { DateAndTime } from "./date-time";
 import { General } from "./general";
+import { HandleSettings } from "./handleSettings";
 import { Security } from "./security";
 
 const panels = [
@@ -30,6 +30,10 @@ const panels = [
     {
         id: 'network',
         element: <h1>network</h1>
+    },
+    {
+        id: 'handle-settings',
+        element: <HandleSettings />
     }
 ]
 
@@ -45,11 +49,11 @@ export const changePanel = (elementToDisplayId: string | (() => any), elementToH
     compilerDOM.createHtml(container).render(elementToDisplay)
 }
 
-export const switchElemDisplay = (value: any, elem: keyof JsonSettings, callBack?: () => void) => {
+export const switchElemDisplay = (value: any, elem: string, callBack?: () => void) => {
     const isChecked = value.target.checked
 
     if (typeof isChecked === 'boolean') {
-        handleSettingJson.set(elem, isChecked ? 'true' : 'false')
+        localStorage.setItem(elem, isChecked ? 'true' : 'false')
         if (callBack) { callBack() }
     }
 }

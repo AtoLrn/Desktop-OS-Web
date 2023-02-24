@@ -1,7 +1,6 @@
 import React from "../../jsx-compiler/jsx"
 import "../styles/components/formPassword.scss"
 import { htmlById } from "../utils/handleHtml"
-import { handleSettingJson } from "../utils/handleSettingJson"
 
 export const FormPassword = ({ isPwdEnabled }: { isPwdEnabled: () => boolean }) => {
     if(!isPwdEnabled()) return null
@@ -10,7 +9,7 @@ export const FormPassword = ({ isPwdEnabled }: { isPwdEnabled: () => boolean }) 
         e.preventDefault()
         const input = document.getElementById('input-pwd') as HTMLInputElement
         htmlById('result').innerHTML = "password saved."
-        handleSettingJson.set('pwd', input.value)
+        localStorage.setItem('pwd', input.value)
     }
 
     const onKeyUp = (e: any) => {
