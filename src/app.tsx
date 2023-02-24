@@ -10,13 +10,9 @@ import { windowManager } from "./utils/windowManager";
 import { handleLock } from "./utils/handleLock";
 import { LockedScreen } from "./components/lockedScreen";
 import { toggleThemeMode } from "./applications";
-import { handleSettingJson } from "./utils/handleSettingJson";
-
-
 
 export const App = () => {
 
-  handleSettingJson.init()
   swipeListener.startListening()
   toggleThemeMode()
 

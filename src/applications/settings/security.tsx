@@ -3,7 +3,6 @@ import { BackBtn } from "./backBtn"
 import { switchElemDisplay } from "./utils"
 import { reRenderHtml } from "../../utils/handleHtml"
 import { FormPassword } from "../../components/formPassword"
-import { handleSettingJson } from "../../utils/handleSettingJson"
 
 const isPwdEnabled = () => localStorage.getItem('enablePwd') === 'true' ? true : false
 
@@ -11,7 +10,7 @@ export const Security = () => {
 
     const onSwitch = (val: any) => {
         switchElemDisplay(val, 'enablePwd')
-        handleSettingJson.set('pwd', '')
+        localStorage.setItem('pwd', '')
         reRenderHtml('form-password', <FormPassword isPwdEnabled={isPwdEnabled} />)
     }
 
