@@ -8,7 +8,9 @@ const jsonSettings = {
     daysDisplay: 'true',
     monthDisplay: 'true',
     yearDisplay: 'true',
-    dateDisplay: 'true'
+    dateDisplay: 'true',
+    networkDisplay: 'true',
+    vibrationEnabled: 'true'
 }
 
 export const importSettings = (object: Record<string, string>): boolean => {

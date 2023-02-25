@@ -1,10 +1,12 @@
 // import { MainPage } from ".";
 import compilerDOM from "../../../jsx-compiler/dom";
 import React from "../../../jsx-compiler/jsx";
-import { DateAndTime } from "./date-time";
+import { DateAndTime } from "./dateTime";
 import { General } from "./general";
 import { HandleSettings } from "./handleSettings";
+import { Networks } from "./networks";
 import { Security } from "./security";
+import { Vibration } from "./vibration";
 
 const panels = [
     // {
@@ -25,11 +27,11 @@ const panels = [
     },
     {
         id: 'vibration',
-        element: <h1>vibration</h1>
+        element: <Vibration />
     },
     {
-        id: 'network',
-        element: <h1>network</h1>
+        id: 'networks',
+        element: <Networks />
     },
     {
         id: 'handle-settings',
@@ -54,6 +56,7 @@ export const switchElemDisplay = (value: any, elem: string, callBack?: () => voi
 
     if (typeof isChecked === 'boolean') {
         localStorage.setItem(elem, isChecked ? 'true' : 'false')
+        window.dispatchEvent( new Event('storage') ) // <----- 
         if (callBack) { callBack() }
     }
 }

@@ -1,6 +1,6 @@
 import React from "../../jsx-compiler/jsx";
 import "../styles/status-bar.scss" 
-import { handleLock } from "../utils/handleLock";
+import { htmlById, onLoad, reRenderHtml } from "../utils/handleHtml";
 
 export const updateBattery = () => {
     const nav: any = navigator
@@ -28,10 +28,7 @@ export const updateBattery = () => {
     })
 }
 
-export const StatusBar = ({ reRenderApp } : { reRenderApp: (lock?: boolean) => void }) => {
-
-    // need to be modified in the controle center
-    const isVibrationEnabled = true
+export const StatusBar = () => {
 
     // const updateWeather = () => {
     //     if (navigator.geolocation) {
@@ -83,6 +80,12 @@ export const StatusBar = ({ reRenderApp } : { reRenderApp: (lock?: boolean) => v
     }
 
     const displayNetworkState = () => {
+        if (localStorage.getItem('networkDisplay') !== 'true') {
+            htmlById("network-state").style.display = 'none'
+            return
+        }
+        htmlById("network-state").style.display = 'flex'
+
         const networkTypeDiv = document.getElementById('network-type')
         const networkSpeedDiv = document.getElementById('network-speed')
 
@@ -93,11 +96,31 @@ export const StatusBar = ({ reRenderApp } : { reRenderApp: (lock?: boolean) => v
         networkTypeDiv.innerHTML = nav.connection.effectiveType
         networkSpeedDiv.innerHTML = `${nav.connection.downlink} Mbps`
     }
+
+    const displayVibration = () => {
+        const isVibrationEnabled = localStorage.getItem('vibrationEnabled') === 'true'
+
+        const containerVibration = htmlById('vibration-status')
+        if (isVibrationEnabled) {
+            containerVibration.style.display = 'block'
+            reRenderHtml('vibration-status', <img src="https://www.svgrepo.com/show/334132/mobile-vibration.svg" alt="vibration-mode"/>)            
+        }else {
+            containerVibration.style.display = 'none'
+            containerVibration.innerHTML = ""
+        }
+    }
     
     updateBattery()
     // updateWeather()
+    onLoad(displayLocalTime, displayNetworkState, displayVibration)
     setInterval(displayLocalTime, 1000)
     setInterval(displayNetworkState, 1000)
+
+    window.addEventListener('storage', () => {
+        displayVibration()
+        displayLocalTime()
+        displayNetworkState()
+    })
 
     return (
     <nav className='status'>
@@ -110,9 +133,8 @@ export const StatusBar = ({ reRenderApp } : { reRenderApp: (lock?: boolean) => v
         </div> */}
         <div id="local-time"></div>
         <div id="local-date"></div>
-        {isVibrationEnabled ? <div id="vibration-status"><img src="https://www.svgrepo.com/show/334132/mobile-vibration.svg" alt="vibration-mode"/></div> : <div></div>}
+        <div id="vibration-status"></div>
         <div id="network-state"><div id="network-type"></div><div id="network-speed"></div></div>
-        <div id="lock" onClick={() => { handleLock.lock(); reRenderApp(true) }}> Lock </div>
     </nav>
     )
 }
