@@ -12,9 +12,9 @@ export const MainPage = () => {
             <div className="section-settings">
                 <button className="btn" onClick={() => {changePanel('general', 'main-page')}}><div id="general"><h3>General</h3></div></button>
                 <button className="btn" onClick={() => {changePanel('date-time', 'main-page')}}><div id="dateAndTime"><h3>Date & Time</h3></div></button>
-                <button className="btn" onClick={() => {changePanel('security', 'main-page')}} ><div id="network"><h3>Security</h3></div></button>
-                <button className="btn"><div id="vibration"><h3>Vibration</h3></div></button>
-                <button className="btn"><div id="network"><h3>Network</h3></div></button>
+                <button className="btn" onClick={() => {changePanel('security', 'main-page')}} ><div id="security"><h3>Security</h3></div></button>
+                <button className="btn" onClick={() => {changePanel('vibration', 'main-page')}} ><div id="vibration"><h3>Vibration</h3></div></button>
+                <button className="btn" onClick={() => {changePanel('networks', 'main-page')}} ><div id="network"><h3>Networks</h3></div></button>
             </div>
 
             <h1>Others</h1>

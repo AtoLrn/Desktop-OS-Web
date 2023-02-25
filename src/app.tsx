@@ -13,7 +13,6 @@ import { toggleThemeMode } from "./applications";
 
 export const App = () => {
 
-  swipeListener.startListening()
   toggleThemeMode()
 
   const onHoverNav = () => {
@@ -81,7 +80,7 @@ export const App = () => {
 
   const htmlApp = () => {
     return (<div id="app">
-      <StatusBar reRenderApp={reRenderApp} />
+      <StatusBar />
       <div className="all-apps">
         {applications.map((app, index) => <div onClick={() => onApplicationOpen(app)} key={index} className="app-button" style={{ backgroundImage: `url('${new app().url}')` }} title={app.name}></div>)}
       </div>
@@ -106,6 +105,8 @@ export const App = () => {
       <LockedScreen reRenderApp={reRenderApp} />
     )
   }
+
+  swipeListener.startListening(reRenderApp)
 
   return htmlApp()
 };

@@ -41,8 +41,8 @@ export const HandleSettings = () => {
     }
   
     return (
-        <section className="settings-container" id="date-time">
-            <BackBtn cat="handle-settings" />
+        <section className="settings-container" id="handle-settings">
+            <BackBtn cat={'handle-settings'} />
             <h1>Handle Settings</h1>    
             <section className="section-settings">
                     <h2 className="container-checkbox">Import</h2>

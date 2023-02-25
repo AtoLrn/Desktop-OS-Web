@@ -1,3 +1,4 @@
+import React from "../../jsx-compiler/jsx"
 import compilerDOM from "../../jsx-compiler/dom"
 import { JSX } from "../../jsx-compiler/types"
 
@@ -22,5 +23,13 @@ export const reRenderHtml = (id: string, htmlElement: JSX) => {
     container.innerHTML = ""
     const compiler = compilerDOM.createHtml(container)
     compiler.render(htmlElement)
+}
+
+export const onLoad = (...functions: any[]) => {
+    window.addEventListener("load", () => {
+        for (const func of functions) {
+            func()
+        }
+    })
 }
 

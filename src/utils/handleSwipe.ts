@@ -1,13 +1,19 @@
 import { ActionMobile } from "./actionMobile";
+import { handleLock } from "./handleLock";
 import { windowManager } from "./windowManager";
 
 class SwipeListener extends ActionMobile {
     xStart: number|null = null;                                                        
     yStart: number|null = null; 
+    action?: (arg?: any) => void = undefined;
 
-    startListening = () => {
+    setAction = (action?: (arg?: any) => void) => {
+        this.action = action
+    }
+    startListening = (action?: () => void) => {
         document.addEventListener('touchstart', this.handleTouchStart, false);        
         document.addEventListener('touchmove', this.handleTouchMove, false); 
+        this.setAction(action)
     }
 
     stopListening() {
@@ -59,6 +65,12 @@ class SwipeListener extends ActionMobile {
     }
     swipeDown = () => {
         if (this.isMenuOpen) this.closeMenu()
+        if(this.yStart && this.yStart < 200) {
+            handleLock.lock()
+            if(this.action) {
+                this.action(true)
+            }
+        }
     }
     swipeLeft = () => {
         console.log('swipe left') 
