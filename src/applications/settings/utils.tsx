@@ -1,6 +1,7 @@
 // import { MainPage } from ".";
 import compilerDOM from "../../../jsx-compiler/dom";
 import React from "../../../jsx-compiler/jsx";
+import { makeVibration } from "../../utils/handleVibration";
 import { DateAndTime } from "./dateTime";
 import { General } from "./general";
 import { HandleSettings } from "./handleSettings";
@@ -52,6 +53,7 @@ export const changePanel = (elementToDisplayId: string | (() => any), elementToH
 }
 
 export const switchElemDisplay = (value: any, elem: string, callBack?: () => void) => {
+    makeVibration(0.1)
     const isChecked = value.target.checked
 
     if (typeof isChecked === 'boolean') {

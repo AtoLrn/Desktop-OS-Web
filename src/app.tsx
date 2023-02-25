@@ -10,6 +10,7 @@ import { windowManager } from "./utils/windowManager";
 import { handleLock } from "./utils/handleLock";
 import { LockedScreen } from "./components/lockedScreen";
 import { toggleThemeMode } from "./applications";
+import { makeVibration } from "./utils/handleVibration";
 
 export const App = () => {
 
@@ -24,12 +25,14 @@ export const App = () => {
   }
 
   const onApplicationOpen = (app: AppType<any>) => {
+    makeVibration(0.1)
     swipeListener.closeMenu()
     windowManager.createApp(app)
     refreshCurrentAppsHeaders()
   }
 
   const closeApp = (id: string) => {
+    makeVibration(0.1)
     windowManager.closingWindow(id)
     refreshCurrentAppsHeaders()
   }

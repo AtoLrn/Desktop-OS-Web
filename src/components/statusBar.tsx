@@ -98,7 +98,7 @@ export const StatusBar = () => {
     }
 
     const displayVibration = () => {
-        const isVibrationEnabled = localStorage.getItem('vibrationEnabled') === 'true'
+        const isVibrationEnabled = localStorage.getItem('vibrationDisplay') === 'true'
 
         const containerVibration = htmlById('vibration-status')
         if (isVibrationEnabled) {
