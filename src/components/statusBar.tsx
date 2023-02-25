@@ -4,6 +4,7 @@ import { htmlById, onLoad, reRenderHtml } from "../utils/handleHtml";
 
 export const updateBattery = () => {
     const nav: any = navigator
+    if (nav.getBattery)
     nav.getBattery().then((bat: any) => {
         const isBatteryDisplayed = localStorage.getItem('batteryDisplay') === 'true' ? true : false
         const div = document.getElementById('status-battery')

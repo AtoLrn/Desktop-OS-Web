@@ -1,0 +1,9 @@
+{
+    email {$EMAIL}
+    {$DEBUG}
+}
+
+
+{$SERVER_NAME} {
+    reverse_proxy prod:4173
+}

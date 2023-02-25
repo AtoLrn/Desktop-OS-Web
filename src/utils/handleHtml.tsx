@@ -1,4 +1,3 @@
-import React from "../../jsx-compiler/jsx"
 import compilerDOM from "../../jsx-compiler/dom"
 import { JSX } from "../../jsx-compiler/types"
 
