@@ -39,7 +39,7 @@ jobs:
         path: ./dist
 
     - name: Upload code
-      run: rsync -avz ./dist/** ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/project
+      run: rsync -avz ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/project
       
     - name: Deploy
       run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /home/${{ secrets.SSH_USER }}/project && docker compose up -d --build
