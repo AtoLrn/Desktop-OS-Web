@@ -3,6 +3,7 @@ import React from "../../jsx-compiler/jsx";
 import { setValueInput } from "../utils/handleHtml";
 
 import "../styles/apps/calculator.scss"
+import { makeVibration } from "../utils/handleVibration";
 
 
 export class Calculator extends Application {
@@ -17,14 +18,17 @@ export class Calculator extends Application {
     }
 
     writeCharater = (value: string) => {
+        makeVibration(0.1)
         this.input = setValueInput("input-calculator", this.input + value)
     }
 
     deleteCharacter = () => {
+        makeVibration(0.1)
         this.input = setValueInput("input-calculator", this.input.substring(0, this.input.length - 1))
     }
 
     clear = () => {
+        makeVibration(0.1)
         this.input = setValueInput("input-calculator", "")
     }
 

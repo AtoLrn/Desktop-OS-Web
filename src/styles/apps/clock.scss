@@ -59,9 +59,11 @@
     align-items: center;
 
     #timerInput {
+      display: flex;
+      font-size: 32px;
+      font-weight: 700;
       input {
-        width: 30px;
-        margin: 0 15px;
+        width: 50px;
       }
     }
 

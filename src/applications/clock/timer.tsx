@@ -1,4 +1,6 @@
 import React from "../../../jsx-compiler/jsx";
+import { htmlById } from "../../utils/handleHtml";
+import { makeVibration } from "../../utils/handleVibration";
 
 export const Timer = () => {
 
@@ -29,6 +31,7 @@ export const Timer = () => {
     }
 
     const onStartTimer = () => {
+        makeVibration(0.1)
         const hoursInput = document.getElementById('hoursInput') as HTMLInputElement
         const minutesInput = document.getElementById('minutesInput') as HTMLInputElement
         const secondsInput = document.getElementById('secondsInput') as HTMLInputElement
@@ -53,9 +56,7 @@ export const Timer = () => {
                 compressedTime = seconds + (minutes * 60) + (hours * 3600)
             }
 
-            hoursInput.classList.add('hidden-element')
-            minutesInput.classList.add('hidden-element')
-            secondsInput.classList.add('hidden-element')
+            htmlById('timerInput').style.display = 'none'
 
             startButtonDiv.classList.add('hidden-element')
             stopButtonDiv.classList.remove('hidden-element')
@@ -68,6 +69,7 @@ export const Timer = () => {
     }
 
     const onStopTimer = () => {
+        makeVibration(0.1)
         const startButtonDiv = document.getElementById('startButtonTimer')
         const stopButtonDiv = document.getElementById('stopButtonTimer')
 
@@ -80,6 +82,7 @@ export const Timer = () => {
     }
 
     const timerNotify = () => {
+        makeVibration(1)
         if (!("Notification" in window)) {
             alert("This browser does not support desktop notification")
         } else if (Notification.permission === "granted") {
@@ -99,10 +102,6 @@ export const Timer = () => {
         const cancelButtonDiv = document.getElementById('cancelButtonTimer')
 
         const timerValueDiv = document.getElementById('timerValue')
-
-        const hoursInput = document.getElementById('hoursInput') as HTMLInputElement
-        const minutesInput = document.getElementById('minutesInput') as HTMLInputElement
-        const secondsInput = document.getElementById('secondsInput') as HTMLInputElement
 
         clearInterval(timerInterval)
 
@@ -130,19 +129,17 @@ export const Timer = () => {
             timerValueDiv.classList.add('hidden-element')
         }
 
-        if (hoursInput && minutesInput && secondsInput) {
-            hoursInput.classList.remove('hidden-element')
-            minutesInput.classList.remove('hidden-element')
-            secondsInput.classList.remove('hidden-element')
-        }
+        htmlById('timerInput').style.display = 'flex'
     }
 
     return (
         <div id="timer" className='panels hidden-element'>
             <div id='timerInput'>
-                <input id="hoursInput" type='number' min='0' max='23' value='0'/>
-                <input id="minutesInput" type='number' min='0' max='59' value='10'/>
-                <input id="secondsInput" type='number' min='0' max='59' value='0'/>
+                <input className="input-timer" id="hoursInput" type='number' min='0' max='23' value='0'/>
+                <div>:</div>
+                <input className="input-timer" id="minutesInput" type='number' min='0' max='59' value='10'/>
+                <div>:</div>
+                <input className="input-timer" id="secondsInput" type='number' min='0' max='59' value='0'/>
             </div>
             <h1 id='timerValue' className='hidden-element'>00:00:00</h1>
             <div id='timerButton'>
