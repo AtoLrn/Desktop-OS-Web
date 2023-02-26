@@ -1,6 +1,7 @@
 import { Application } from ".";
 import React from "../../jsx-compiler/jsx";
 import "../styles/apps/tictactoe.scss";
+import { makeVibration } from "../utils/handleVibration";
 
 interface BlockList {
     bot: {item: HTMLSpanElement, index: number}[]
@@ -116,6 +117,7 @@ export class TicTacToe extends Application {
     }
 
     onCaseClick = (event: any) => {
+        makeVibration(0.1)
         const elem: HTMLSpanElement = event.srcElement
         if (!elem.classList.contains('bot') && !elem.classList.contains('player')) {
             elem.classList.add('player')

@@ -29,3 +29,14 @@ input {
 .hidden-element {
   display: none !important;
 }
+
+.input-timer {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  font-size: 32px;
+  width: 50px;
+  font-weight: 700;
+  text-align: center;
+
+
+}
