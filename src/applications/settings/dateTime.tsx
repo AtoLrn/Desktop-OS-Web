@@ -13,9 +13,9 @@ export const DateAndTime = () => {
     const isYearDisplayed = localStorage.getItem('yearDisplay') === 'true' ? true : false
 
     const triggerIsDateDisplayed = (value: any) => {
-        const daysInput = document.getElementById("settingsInputDays")
-        const monthInput = document.getElementById("settingsInputMonth")
-        const yearInput = document.getElementById("settingsInputYear")
+        const daysInput = document.getElementById("settingsInputDays") as HTMLInputElement
+        const monthInput = document.getElementById("settingsInputMonth") as HTMLInputElement
+        const yearInput = document.getElementById("settingsInputYear") as HTMLInputElement
        
         if (daysInput && monthInput && yearInput) {
             daysInput.disabled = !value.target.checked
