@@ -11,8 +11,7 @@ export const updateBattery = () => {
 
         if (!div) return
         
-        const updateFunction = (x: any) => {
-            console.log(x)
+        const updateFunction = () => {
             div.innerText = `${Math.round(bat.level * 100)}%`
         }
 
@@ -31,24 +30,6 @@ export const updateBattery = () => {
 
 export const StatusBar = () => {
 
-    // const updateWeather = () => {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(async (loc) => {
-    //             const { latitude, longitude } = loc.coords
-    //             const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${'35f20df55d8f5a1c451cbf8344b6a4ac'}&units=metric`)
-    //             const data = await res.json()
-    //             const div = document.getElementById('status-temp')
-    //             if (!div) return
-    //             div.innerText = `${Math.round(data.main.temp)}°C`
-
-    //             const divWeather = document.getElementById('status-weather')
-    //             if (!divWeather) return
-    //             divWeather.innerText = `${data.weather[0].main}`
-    //         });
-    //       } else {
-    //       }
-    // }
-
     const displayLocalTime = () => {
         const localTimeDiv = document.querySelector('#local-time')
         const localDateDiv = document.querySelector('#local-date')
@@ -66,7 +47,7 @@ export const StatusBar = () => {
 
         const localTime = new Date()
 
-        if (localTimeDiv) {
+        if (localTimeDiv && (isHoursDisplayed || isMinutesDisplayed || isSecondsDisplayed)) {
             localTimeDiv.innerHTML = localTime.toLocaleTimeString([], {hour: isHoursDisplayed ? '2-digit' : undefined, minute: isMinutesDisplayed ? '2-digit' : undefined, second: isSecondsDisplayed ? '2-digit' : undefined})
         }
 
@@ -99,12 +80,13 @@ export const StatusBar = () => {
     }
 
     const displayVibration = () => {
-        const isVibrationEnabled = localStorage.getItem('vibrationDisplay') === 'true'
-
+        const isVibrationDisplayed = localStorage.getItem('vibrationDisplay') === 'true'
+        const isVibrationEnabled = localStorage.getItem('vibrationEnabled') === 'true'
+        
         const containerVibration = htmlById('vibration-status')
-        if (isVibrationEnabled) {
+        if (isVibrationDisplayed) {
             containerVibration.style.display = 'block'
-            reRenderHtml('vibration-status', <img src="https://www.svgrepo.com/show/334132/mobile-vibration.svg" alt="vibration-mode"/>)            
+            reRenderHtml('vibration-status', <img src={isVibrationEnabled ? "https://www.svgrepo.com/show/334132/mobile-vibration.svg" : "https://www.svgrepo.com/show/391025/mute-notification.svg"} alt="vibration-mode"/>)            
         }else {
             containerVibration.style.display = 'none'
             containerVibration.innerHTML = ""
