@@ -1,3 +1,5 @@
+@import "../breakpoint.scss";
+
 .tictactoe {
     display: flex;
     flex-direction: column;
@@ -34,5 +36,13 @@
       &.bot {
         background-color: red;
       }
+
+      @include breakpoint(tablet) {
+        width: 100px;
+        height: 100px;
+      }
+  }
+  @include breakpoint(tablet) {
+    height: 0px;
   }
 }
