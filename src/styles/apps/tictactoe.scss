@@ -10,7 +10,7 @@
     > button {
       width: 80%;
       height: 4em;
-      background-color: aqua;
+      background-color: var(--blue);
       font-size: 24px;
       cursor: pointer;
     }
@@ -38,8 +38,9 @@
       }
 
       @include breakpoint(tablet) {
-        width: 100px;
-        height: 100px;
+        width: 25%;
+        height: 0px;
+        padding-bottom: 25%;
       }
   }
   @include breakpoint(tablet) {
