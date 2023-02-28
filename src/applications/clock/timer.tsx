@@ -23,6 +23,12 @@ export const Timer = () => {
         compressedTime--
 
         const timerDate = new Date(compressedTime * 1000)
+
+        if (isNaN(timerDate.getTime())) {
+            timerValueDiv.innerHTML = '00:00:00'
+            return
+        }
+
         timerValueDiv.innerHTML =
             ('0' + timerDate.getUTCHours()).slice(-2) + ':' +
             ('0' + timerDate.getUTCMinutes()).slice(-2) + ':' +
@@ -84,7 +90,7 @@ export const Timer = () => {
     const timerNotify = () => {
         makeVibration(1)
         if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification")
+            console.log('Notification not suppported.')
         } else if (Notification.permission === "granted") {
             new Notification("Timer finished!")
         } else if (Notification.permission !== "denied") {
@@ -112,9 +118,9 @@ export const Timer = () => {
         timerNotify()
 
 
-        hours = undefined
-        seconds = undefined
-        minutes = undefined
+        hours = 0
+        seconds = 0
+        minutes = 0
 
         compressedTime = undefined
 
